@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class CharacterController : MonoBehaviour
 {
     [SerializeField] float moveSpeed;
+    [SerializeField] float jumpForce = 1f;
     public Vector3 moveDirection;
     [SerializeField] Vector3 moveVector; //temp serializefield
     CameraBehaviour camBehave;
@@ -16,8 +17,8 @@ public class CharacterController : MonoBehaviour
     float vMove;
 
     Rigidbody rb;
-    bool isMoving;
-    bool isRolling;
+    bool walk;
+    bool jump;
 
 
     void Start()
@@ -33,13 +34,23 @@ public class CharacterController : MonoBehaviour
         GetMoveDirection();
         Animate();
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            jump = true;
+        }
+
     }
 
     void FixedUpdate()
     {
-        if (isMoving)
+        if (walk)
         {
             Walk();
+        }
+        if (jump)
+        {
+            Jump();
+            jump = false;
         }
     }
 
@@ -51,13 +62,19 @@ public class CharacterController : MonoBehaviour
         moveDirection = camBehave.camTrans.rotation * new Vector3(hMove, 0, vMove).normalized * moveSpeed;
         transform.rotation = Quaternion.Euler(0, camBehave.camTrans.rotation.y, 0);
         //moveDirection = new Vector3(hMove, 0, vMove).normalized * moveSpeed;
-        isMoving = true;
+        walk = true;
     }
     public void Walk()
     {
 
         rb.velocity = new Vector3(moveDirection.x, rb.velocity.y, moveDirection.z);
 
+    }
+
+    void Jump()
+    {
+        rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
+        Debug.Log("jump");
     }
 
     void Animate()
@@ -71,4 +88,7 @@ public class CharacterController : MonoBehaviour
             animator.SetBool("Walk_Anim", true);
         }
     }
+
+
+
 }

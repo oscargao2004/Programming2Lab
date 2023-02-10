@@ -25,10 +25,10 @@ public class CameraBehaviour : MonoBehaviour
     void Update()
     {
         GetMouseInput();
-    }
-    private void LateUpdate()
-    {
         FollowPlayer();
+    }
+    void LateUpdate()
+    {
     }
 
     void FollowPlayer()
