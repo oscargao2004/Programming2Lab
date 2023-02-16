@@ -16,4 +16,9 @@ public class Enemy : MonoBehaviour
         stats.text = $"Health: {totalHealth}\nAttack Damage: {attackDamage}\nLevel: {level}";
 
     }
+
+    public virtual void LocatePlayer()
+    {
+        Transform playerPos = PlayerStats.Instance.playerPos;
+    }
 }

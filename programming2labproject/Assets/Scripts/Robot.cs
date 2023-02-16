@@ -7,6 +7,7 @@ public class Robot : Enemy
     string enemyType = "robot";
     void Start()
     {
+        base.LocatePlayer();
         base.GetStats();
         stats.text += $"\nType: {enemyType}";
     }
