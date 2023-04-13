@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Robot : Enemy
+public class Robot : Enemy<Robot>
 {
     string enemyType = "robot";
     void Start()
@@ -10,5 +10,7 @@ public class Robot : Enemy
         base.LocatePlayer();
         base.GetStats();
         stats.text += $"\nType: {enemyType}";
+
+        DeclareType();
     }
 }
